@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jubatus OS — Hız. Özgürlük. Jubatus OS.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg: #0E0E10;
+  --surface: #1A1A1D;
+  --surface-2: #232327;
+  --text: #F2F1EC;
+  --muted: #9C9C9F;
+  --accent: #FF6A1A;
+  --accent-dim: #5C2A0F;
+  --border: rgba(242,241,236,0.08);
+  --font-display: 'Oswald', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+
+.accent{color:var(--accent);}
+
+/* ===== Speed streaks (signature element) ===== */
+.streaks{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.streak{
+  position:absolute;
+  height:1px;
+  width:140%;
+  background:linear-gradient(90deg, transparent, var(--accent) 40%, transparent);
+  opacity:0.18;
+  transform:translateX(-120%) rotate(-6deg);
+}
+.streak.s1{top:18%; animation:streakRun 7s linear infinite;}
+.streak.s2{top:46%; height:2px; opacity:0.12; animation:streakRun 9s linear infinite 1.5s;}
+.streak.s3{top:74%; animation:streakRun 11s linear infinite 3s;}
+@keyframes streakRun{
+  to{transform:translateX(40%) rotate(-6deg);}
+}
+@media (prefers-reduced-motion: reduce){
+  .streak{animation:none; opacity:0.06;}
+}
+
+/* ===== Nav ===== */
+.nav{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:rgba(14,14,16,0.8);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{
+  max-width:1180px;
+  margin:0 auto;
+  padding:14px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.brand{display:flex; align-items:center; gap:10px;}
+.brand-logo{
+  width:32px; height:32px; border-radius:6px;
+  background:var(--accent);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.brand-logo svg{width:20px; height:20px; color:#0E0E10;}
+.brand-name{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:17px;
+  letter-spacing:0.06em;
+}
+.nav-links{display:flex; align-items:center; gap:28px; font-size:14px;}
+.nav-links a{color:var(--muted); transition:color .15s;}
+.nav-links a:hover{color:var(--text);}
+.nav-cta{
+  color:var(--text) !important;
+  background:var(--accent);
+  padding:8px 16px;
+  border-radius:6px;
+  font-weight:500;
+}
+.nav-cta:hover{background:#ff7d36;}
+
+/* ===== Buttons ===== */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:13px 26px;
+  border-radius:6px;
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:15px;
+  letter-spacing:0.03em;
+  transition:transform .15s, background .15s, border-color .15s;
+  border:none;
+  cursor:pointer;
+}
+.btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+.btn .icon{width:18px; height:18px;}
+.btn-primary{background:var(--accent); color:#0E0E10;}
+.btn-primary:hover{background:#ff7d36; transform:translateY(-1px);}
+.btn-ghost{border:1px solid var(--border); color:var(--text); background:transparent;}
+.btn-ghost:hover{border-color:var(--accent); color:var(--accent);}
+.btn-block{width:100%; justify-content:center; margin-top:16px;}
+
+/* ===== Hero ===== */
+.hero{
+  position:relative;
+  z-index:1;
+  max-width:1180px;
+  margin:0 auto;
+  padding:90px 24px 0;
+  text-align:center;
+}
+.hero-logo{
+  width:96px; height:96px;
+  margin:0 auto 24px;
+  border-radius:18px;
+  background:var(--accent);
+  display:flex; align-items:center; justify-content:center;
+}
+.hero-logo svg{width:56px; height:56px; color:#0E0E10;}
+.hero-title{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:clamp(44px, 9vw, 96px);
+  letter-spacing:0.05em;
+  line-height:1;
+}
+.hero-slogan{
+  margin-top:16px;
+  font-size:clamp(16px, 2vw, 20px);
+  color:var(--muted);
+  letter-spacing:0.02em;
+}
+.hero-cta{
+  margin-top:36px;
+  display:flex;
+  gap:14px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.hero-meta{
+  margin-top:28px;
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  align-items:center;
+  font-size:13px;
+  color:var(--muted);
+  flex-wrap:wrap;
+}
+.hero-meta .dot{
+  width:4px; height:4px; border-radius:50%;
+  background:var(--muted);
+  display:inline-block;
+}
+
+/* Cheetah run track */
+.cheetah-track{
+  position:relative;
+  height:120px;
+  margin-top:64px;
+  overflow:hidden;
+  border-top:1px solid var(--border);
+}
+.cheetah-run{
+  position:absolute;
+  bottom:18px;
+  left:-60px;
+  width:48px;
+  height:28px;
+  background:var(--accent);
+  border-radius:0 60% 40% 30% / 0 80% 60% 40%;
+  animation:run 6s linear infinite;
+}
+.cheetah-run::before{
+  content:'';
+  position:absolute;
+  top:-14px; right:2px;
+  width:18px; height:18px;
+  background:var(--accent);
+  border-radius:50% 50% 10% 50%;
+}
+.cheetah-run::after{
+  content:'';
+  position:absolute;
+  bottom:-6px; left:6px;
+  width:30px; height:8px;
+  background:var(--accent-dim);
+  border-radius:4px;
+  filter:blur(2px);
+  opacity:0.6;
+}
+@keyframes run{
+  0%{left:-60px;}
+  100%{left:110%;}
+}
+@media (prefers-reduced-motion: reduce){
+  .cheetah-run{animation:none; left:30%;}
+}
+
+/* ===== Section shared ===== */
+section{
+  position:relative;
+  z-index:1;
+  max-width:1180px;
+  margin:0 auto;
+  padding:90px 24px;
+}
+.eyebrow{
+  font-family:var(--font-display);
+  text-transform:uppercase;
+  letter-spacing:0.18em;
+  font-size:12px;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+.section-title{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:clamp(26px, 4vw, 38px);
+  letter-spacing:0.01em;
+  max-width:640px;
+}
+.center{text-align:center; margin-left:auto; margin-right:auto;}
+.muted{color:var(--muted);}
+
+/* ===== Download band ===== */
+.download-band{
+  background:var(--surface);
+  border-radius:16px;
+  max-width:1180px;
+}
+.download-inner{
+  display:grid;
+  grid-template-columns:1.3fr 1fr;
+  gap:48px;
+  align-items:center;
+}
+.download-text h2{
+  font-family:var(--font-display);
+  font-size:clamp(24px, 3.4vw, 34px);
+  font-weight:600;
+  margin-bottom:12px;
+}
+.download-card{
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:24px;
+}
+.dl-row{
+  display:flex;
+  justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+  font-size:14px;
+}
+.dl-row:last-of-type{border-bottom:none;}
+.dl-row span{color:var(--muted);}
+
+/* ===== Features ===== */
+.feature-grid{
+  margin-top:48px;
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+}
+.feature-card{
+  background:var(--bg);
+  padding:32px 24px;
+}
+.feature-icon{
+  width:40px; height:40px;
+  color:var(--accent);
+  margin-bottom:18px;
+}
+.feature-icon svg{width:100%; height:100%;}
+.feature-card h3{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:18px;
+  margin-bottom:8px;
+  letter-spacing:0.02em;
+}
+.feature-card p{
+  font-size:14px;
+  color:var(--muted);
+}
+
+/* ===== Screenshots ===== */
+.screenshot-grid{
+  margin-top:48px;
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:16px;
+}
+.shot{
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  background:var(--surface);
+}
+.shot img{
+  width:100%;
+  aspect-ratio:16/10;
+  object-fit:cover;
+  display:block;
+  background:var(--surface-2);
+}
+.shot figcaption{
+  padding:12px 16px;
+  font-size:13px;
+  color:var(--muted);
+  font-family:var(--font-display);
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+}
+.shot-wide{grid-column:span 2;}
+.shot-wide img{aspect-ratio:16/9;}
+.shot-full{grid-column:1 / -1;}
+.shot-full img{aspect-ratio:21/5; object-fit:contain; background:var(--surface-2);}
+
+/* ===== Why ===== */
+.why-grid{
+  margin-top:48px;
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:32px;
+}
+.why-num{
+  font-family:var(--font-display);
+  font-size:14px;
+  color:var(--accent);
+  letter-spacing:0.1em;
+}
+.why-item h3{
+  font-family:var(--font-display);
+  font-weight:500;
+  font-size:18px;
+  margin:10px 0 8px;
+}
+.why-item p{
+  font-size:14px;
+  color:var(--muted);
+}
+
+/* ===== Apps ===== */
+.apps-row{
+  margin-top:40px;
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.app-pill{
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:10px 22px;
+  font-size:14px;
+  color:var(--text);
+  font-family:var(--font-display);
+  letter-spacing:0.03em;
+  transition:border-color .15s, color .15s;
+}
+.app-pill:hover{border-color:var(--accent); color:var(--accent);}
+
+/* ===== Final CTA ===== */
+.cta-final{
+  text-align:center;
+}
+.cta-final h2{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:clamp(32px, 6vw, 56px);
+  letter-spacing:0.02em;
+}
+.cta-final p{margin:14px 0 28px;}
+
+/* ===== Footer ===== */
+.footer{
+  border-top:1px solid var(--border);
+  padding:64px 24px 32px;
+}
+.footer-inner{
+  max-width:1180px;
+  margin:0 auto;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:48px;
+}
+.footer-brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:17px;
+  letter-spacing:0.06em;
+}
+.footer-logo{
+  width:28px; height:28px; border-radius:6px;
+  background:var(--accent);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.footer-logo svg{width:16px; height:16px; color:#0E0E10;}
+.footer-cols{
+  display:flex;
+  gap:56px;
+  flex-wrap:wrap;
+}
+.footer-col h4{
+  font-family:var(--font-display);
+  font-size:13px;
+  text-transform:uppercase;
+  letter-spacing:0.12em;
+  color:var(--muted);
+  margin-bottom:14px;
+}
+.footer-col a{
+  display:block;
+  font-size:14px;
+  color:var(--text);
+  padding:4px 0;
+  transition:color .15s;
+}
+.footer-col a:hover{color:var(--accent);}
+.footer-note{
+  max-width:1180px;
+  margin:48px auto 0;
+  font-size:12px;
+  color:var(--muted);
+  text-align:center;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px){
+  .nav-links{gap:16px; font-size:13px;}
+  .download-inner{grid-template-columns:1fr;}
+  .feature-grid{grid-template-columns:repeat(2,1fr);}
+  .screenshot-grid{grid-template-columns:repeat(2,1fr);}
+  .shot-wide{grid-column:span 2;}
+  .why-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width: 560px){
+  .nav-links{display:none;}
+  .feature-grid{grid-template-columns:1fr;}
+  .screenshot-grid{grid-template-columns:1fr;}
+  .shot-wide{grid-column:span 1;}
+  .why-grid{grid-template-columns:1fr;}
+  section{padding:60px 20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- Speed streak background element (signature) -->
+<div class="streaks" aria-hidden="true">
+  <span class="streak s1"></span>
+  <span class="streak s2"></span>
+  <span class="streak s3"></span>
+</div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <span class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+      </span>
+      <span class="brand-name">JUBATUS<span class="accent">OS</span></span>
+    </div>
+    <nav class="nav-links">
+      <a href="#ozellikler">Özellikler</a>
+      <a href="#ekran-goruntuleri">Ekran Görüntüleri</a>
+      <a href="#neden">Neden Jubatus</a>
+      <a href="#indir" class="nav-cta">İndir</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-logo">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+    </div>
+    <h1 class="hero-title">JUBATUS <span class="accent">OS</span></h1>
+    <p class="hero-slogan">Hız. Özgürlük. Jubatus OS.</p>
+    <div class="hero-cta">
+      <a href="#indir" class="btn btn-primary">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+        İndir — .iso 2.4 GB
+      </a>
+      <a href="#ozellikler" class="btn btn-ghost">Özellikleri Gör</a>
+    </div>
+    <div class="hero-meta">
+      <span>Sürüm 1.0 “Cheetah”</span>
+      <span class="dot"></span>
+      <span>amd64</span>
+      <span class="dot"></span>
+      <span>Debian tabanlı</span>
+    </div>
+  </div>
+  <div class="cheetah-track" aria-hidden="true">
+    <div class="cheetah-run"></div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section class="download-band" id="indir">
+  <div class="download-inner">
+    <div class="download-text">
+      <p class="eyebrow">İndir</p>
+      <h2>Jubatus OS’u indirmeye hazır mısın?</h2>
+      <p class="muted">En son kararlı sürümü doğrudan indir, kontrol toplamlarıyla doğrula ve dakikalar içinde dene.</p>
+    </div>
+    <div class="download-card">
+      <div class="dl-row"><span>ISO boyutu</span><strong>2.4 GB</strong></div>
+      <div class="dl-row"><span>Sürüm</span><strong>1.0 “Cheetah”</strong></div>
+      <div class="dl-row"><span>Mimari</span><strong>amd64 / x86_64</strong></div>
+      <a href="#" class="btn btn-primary btn-block">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+        İndirmeyi Başlat
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ÖZELLİKLER -->
+<section class="features" id="ozellikler">
+  <p class="eyebrow center">Özellikler</p>
+  <h2 class="section-title center">Neye sahip olduğunu bil</h2>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+      </div>
+      <h3>Hafif &amp; Hızlı</h3>
+      <p>Eski donanımda bile gaza basar gibi açılır. Gereksiz hiçbir şey arkanızdan koşmaz.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Güvenli</h3>
+      <p>Düzenli güvenlik güncellemeleri ve sıkılaştırılmış varsayılan ayarlarla iç rahatlığı.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+      </div>
+      <h3>Açık Kaynak</h3>
+      <p>Her satır kod görünür ve değiştirilebilir. Kapalı kutu yok, sır yok.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <h3>Topluluk Odaklı</h3>
+      <p>Kararlar tartışılır, katkılar karşılanır. Jubatus, kullananlarıyla birlikte koşar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EKRAN GÖRÜNTÜLERİ -->
+<section class="screenshots" id="ekran-goruntuleri">
+  <p class="eyebrow center">Ekran Görüntüleri</p>
+  <h2 class="section-title center">Yakından bir bakış</h2>
+  <div class="screenshot-grid">
+    <figure class="shot shot-wide">
+      <img src="ekran-görüntüsü-1.png" alt="Jubatus OS masaüstü görünümü">
+      <figcaption>Masaüstü</figcaption>
+    </figure>
+    <figure class="shot shot-full">
+      <img src="ekran-görüntüsü-2.png" alt="Jubatus OS görev çubuğu">
+      <figcaption>Görev Çubuğu</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="ekran-görüntüsü-3.png" alt="Jubatus OS başlat menüsü">
+      <figcaption>Başlat Menüsü</figcaption>
+    </figure>
+    <figure class="shot shot-wide">
+      <img src="ekran-görüntüsü-4.png" alt="Calamares kurulum sihirbazı">
+      <figcaption>Calamares Kurulum</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="ekran-görüntüsü-5.png" alt="Jubatus OS ek ekran görüntüsü">
+      <figcaption>Sistem</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- NEDEN JUBATUS -->
+<section class="why" id="neden">
+  <p class="eyebrow center">Neden Jubatus OS?</p>
+  <h2 class="section-title center">Dünyanın en hızlı kara hayvanından ilham</h2>
+  <div class="why-grid">
+    <div class="why-item">
+      <span class="why-num">01</span>
+      <h3>Performans</h3>
+      <p>Optimize edilmiş çekirdek ve hafif masaüstü ile her tıklama anında karşılık bulur.</p>
+    </div>
+    <div class="why-item">
+      <span class="why-num">02</span>
+      <h3>Güvenlik</h3>
+      <p>Varsayılan olarak korumalı, sürekli güncellenen bir temel üzerine kurulu.</p>
+    </div>
+    <div class="why-item">
+      <span class="why-num">03</span>
+      <h3>Özelleştirme</h3>
+      <p>Görev çubuğundan temaya kadar her şey senin tarzına göre şekillenir.</p>
+    </div>
+    <div class="why-item">
+      <span class="why-num">04</span>
+      <h3>Topluluk</h3>
+      <p>Sorular hızla yanıt bulur, fikirler gerçek geliştirmelere dönüşür.</p>
+    </div>
+  </div>
+</section>
+
+<!-- UYUMLU UYGULAMALAR -->
+<section class="apps">
+  <p class="eyebrow center">Uyumlu Uygulamalar</p>
+  <h2 class="section-title center">Sevdiklerin seninle gelir</h2>
+  <div class="apps-row">
+    <span class="app-pill">GNOME</span>
+    <span class="app-pill">Firefox</span>
+    <span class="app-pill">LibreOffice</span>
+    <span class="app-pill">Steam</span>
+    <span class="app-pill">VS Code</span>
+    <span class="app-pill">Spotify</span>
+  </div>
+</section>
+
+<!-- HEMEN DENE -->
+<section class="cta-final">
+  <h2>Hızını test et.</h2>
+  <p class="muted">Jubatus OS’u indir, USB’ye yaz, makinende veya sanal makinede dene.</p>
+  <a href="#indir" class="btn btn-primary">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+    Hemen Dene
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="footer-logo">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+      </span>
+      <span>JUBATUS<span class="accent">OS</span></span>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Proje</h4>
+        <a href="#ozellikler">Özellikler</a>
+        <a href="#ekran-goruntuleri">Ekran Görüntüleri</a>
+        <a href="#">Sürüm Notları</a>
+      </div>
+      <div class="footer-col">
+        <h4>Topluluk</h4>
+        <a href="#">Topluluk</a>
+        <a href="#">GitHub</a>
+        <a href="#">Destek</a>
+      </div>
+      <div class="footer-col">
+        <h4>Yardım</h4>
+        <a href="#">S.S.S.</a>
+        <a href="#">Belgeler</a>
+        <a href="#">İletişim</a>
+      </div>
+    </div>
+  </div>
+  <p class="footer-note">© 2026 Jubatus OS Topluluğu. Açık kaynak, özgürce paylaşılır.</p>
+</footer>
+
+<script>
+// Scroll-reveal for sections and cards
+document.addEventListener('DOMContentLoaded', () => {
+  const targets = document.querySelectorAll(
+    '.feature-card, .shot, .why-item, .download-card, .download-text, .cta-final'
+  );
+
+  targets.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  targets.forEach(el => observer.observe(el));
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    targets.forEach(el => {
+      el.style.transition = 'none';
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+  }
+});
+</script>
+</body>
+</html>
